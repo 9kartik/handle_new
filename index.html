@@ -1,13 +1,35 @@
 <body>
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 <script src="js/handlebars-v4.0.5.js"></script>
+
+<div>
+<input id="username" placeholder="github login">
+<button class="btn" onclick="search()">Add</button>
+</div>
+<div>
+<span class="hyp" onclick="sortby('name')">name</span>
+<span class="hyp" onclick="sortby('loc')">Location</span>
+<span class="hyp" onclick="sortby('flw')">Followers</span>
+</div>
+
 <script id="entry-template" type="text/template">
-  <div>
-  {{#each key}}
-  	<div>
-  		{{login}}
+	<div class="pages">
+	  {{#each key}}
+	  <a href="{{html_url}}" id="samp"class="bordered">
+	  <div class="cross" id="{{id}}"onclick="del(this.id)">X</div>
+	  <div class="card" style="background:url({{avatar_url}});background-size: contain;  background-repeat: no-repeat;
+	  	  background-position-x: 50%;">
+	  </div>
+	  
+	  	<div class="dets">
+	  		{{name}}<br>
+	  		Location :{{loc}}<br>
+	  		Followers: {{flw}}
+	  	</div>
+	  
+	  </a>
+	  {{/each}}
   	</div>
-  {{/each}}
-  </div>
 </script>
 
 <div id="temp">

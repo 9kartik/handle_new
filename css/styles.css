@@ -1,0 +1,34 @@
+.card{
+	flex:1;
+	padding: 5em;
+	margin:1em;
+	max-width: 3em;
+}
+.bordered{
+	border:1px solid gray;
+	border-radius:.3em;
+	margin:2em;
+}
+.bordered:hover{
+	border:1px solid blue;	
+}
+.pages{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.dets{
+padding-left:1em;
+}
+a:link{
+	text-decoration: none;
+}
+.cross{
+       float: right;
+}
+.cross:hover{
+       float: right;
+       background:black;
+       color:red;
+       cursor:not-allowed;
+}
