@@ -14,7 +14,7 @@ function httpGetAsync(theUrl, callback)
             //callback(xmlHttp.responseText,filter);
         	callback(xmlHttp.responseText);
         	else if( xmlHttp.status == 404)
-        	document.getElementById("temp").innerHTML = "No User By this name"
+        	showMsg()
            }
     xmlHttp.open("GET", theUrl, true); // true for asynchronous 
     xmlHttp.send(null);
@@ -51,7 +51,27 @@ function filter(resp)
 	document.getElementById("temp").innerHTML=template(list2)
 	sessionStorage.list=JSON.stringify(list2)
 	}
+	else{
+		location.href = "#"+ob.id;
+		flash(ob.id);
 	}
+	}
+}
+function showMsg(){
+	document.getElementById('msg').innerHTML="Sorry!No users by that name"
+	setTimeout(
+		function(){
+			document.getElementById('msg').innerHTML=""}, 
+			 2000);
+}
+function flash(id){
+	document.getElementById(id).className="_ "
+			+document.getElementById(id).className;
+	setTimeout(
+		function(){
+			document.getElementById(id).className=
+			document.getElementById(id).className.substr(2) }, 
+			 3000);
 }
 function search(){
 		httpGetAsync("https://api.github.com/users/"+document.getElementById('username').value,filter);
@@ -62,14 +82,20 @@ function del(str){
 function sortby(par)
 {
 	console.log(par)
+	selected(par)
 	switch(par)
 	{
 		case 'name':list2.key.sort(sort_by_name);break;
 		case 'loc':list2.key.sort(sort_by_loc);break;
 		case 'flw':list2.key.sort(sort_by_flw);break;
 	}
-	console.log(list2)
+	//console.log(list2)
 	document.getElementById("temp").innerHTML=template(list2)
+}
+function selected(id)
+{
+	document.getElementById('name').className=document.getElementById('loc').className=document.getElementById('flw').className="hyp"
+	document.getElementById(id).className=" clicked"
 }
 function sort_by_name(a,b)
 {
@@ -82,4 +108,22 @@ function sort_by_flw(a,b)
 function sort_by_loc(a,b)
 {
 	return a.loc>b.loc
+}
+function del(sr)
+{
+
+	sr=sr.substr(1)
+	console.log(sr)
+	for(i in list2.key)
+		{
+			console.log(i)
+			if(list2.key[i].id==sr)
+			{
+				list2.key.splice(i,1)
+				delete(list2[sr])
+				break
+			}
+		}
+	document.getElementById("temp").innerHTML=template(list2)
+	sessionStorage.list=JSON.stringify(list2)
 }

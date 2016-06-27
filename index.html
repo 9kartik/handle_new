@@ -1,22 +1,29 @@
 <body>
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 <script src="js/handlebars-v4.0.5.js"></script>
-
-<div>
-<input id="username" placeholder="github login">
-<button class="btn" onclick="search()">Add</button>
+<script src="js/prehandle.js"></script>
+<div class="whole">
+<div class="search">
+	<div class="search_bar">
+	<input id="username" placeholder="github login" onkeypress="handleKeyPress(event)"">
+	<button class="btn" onclick="search()">Add</button>
+	</div>
+	<div>
+	<span class="hyp" id="name" onclick="sortby('name')">Name</span>
+	<span class="hyp" id="loc" onclick="sortby('loc')">Location</span>
+	<span class="hyp" id="flw" onclick="sortby('flw')">Followers</span>
+	<span id="msg"></span>
+	</div>
 </div>
-<div>
-<span class="hyp" onclick="sortby('name')">name</span>
-<span class="hyp" onclick="sortby('loc')">Location</span>
-<span class="hyp" onclick="sortby('flw')">Followers</span>
-</div>
-
+<hr/>
 <script id="entry-template" type="text/template">
 	<div class="pages">
 	  {{#each key}}
+	  <div id="{{id}}" class="pages" title="{{id}}">
+	  <div class="cross" id="x{{id}}"onclick="del(this.id)">X</div>
 	  <a href="{{html_url}}" id="samp"class="bordered">
-	  <div class="cross" id="{{id}}"onclick="del(this.id)">X</div>
+	  <div class="mask">
+	  </div>
 	  <div class="card" style="background:url({{avatar_url}});background-size: contain;  background-repeat: no-repeat;
 	  	  background-position-x: 50%;">
 	  </div>
@@ -26,13 +33,15 @@
 	  		Location :{{loc}}<br>
 	  		Followers: {{flw}}
 	  	</div>
-	  
 	  </a>
+	  </div>
 	  {{/each}}
+
   	</div>
 </script>
 
 <div id="temp">
+</div>
 </div>
 <script src="js/compiler.js"></script>
 </body>
