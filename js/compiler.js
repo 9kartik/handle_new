@@ -43,14 +43,18 @@ function filter(resp)
 	ob.flw=resp.followers
 	ob.html_url=resp.html_url
 	ob.avatar_url=resp.avatar_url
+	if(!list2.hasOwnProperty(ob.id))
+	{
 	list2.key.push(ob)
+	list2[ob.id]=1
 	console.log(ob)
 	document.getElementById("temp").innerHTML=template(list2)
 	sessionStorage.list=JSON.stringify(list2)
 	}
+	}
 }
 function search(){
-	httpGetAsync("https://api.github.com/users/"+document.getElementById('username').value,filter);
+		httpGetAsync("https://api.github.com/users/"+document.getElementById('username').value,filter);
 }
 function del(str){
 	console.log(str)
